@@ -1,0 +1,7 @@
+export enum ValidationErrorCode {
+  INVALID_EMAIL = 'INVALID_EMAIL',
+  TOO_SHORT = 'TOO_SHORT',
+  TOO_LONG = 'TOO_LONG',
+  NOT_STRING = 'NOT_STRING',
+  INVALID_FIELD = 'INVALID_FIELD',
+}

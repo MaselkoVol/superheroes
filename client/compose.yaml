@@ -1,0 +1,23 @@
+services:
+  client:
+    pull_policy: never # never pull this image from the cloud
+    image: maslkovol-superhero-dev-client
+    container_name: maslkovol-superhero-dev-client
+    build:
+      context: ./
+      target: client-dev
+    env_file:
+      - ./.env
+    ports:
+      - 5173:5173
+    develop:
+      watch:
+        - path: ./
+          action: sync
+          target: /usr/local/app
+          initial_sync: true
+          ignore: # it also ignores files and folders from .dockerignore
+            - ./node_modules/
+            - ./.git/
+        - path: ./package.json
+          action: rebuild

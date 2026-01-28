@@ -1,0 +1,60 @@
+services:
+  server:
+    pull_policy: never # never pull this image from the cloud
+    image: maslkovol-superhero-dev-server
+    container_name: maslkovol-superhero-dev-server
+    build:
+      context: ./
+      target: server-dev
+    env_file:
+      - ./.env
+    ports:
+      - ${PORT}:${PORT}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    develop:
+      watch:
+        - path: ./
+          action: sync
+          target: /usr/local/app
+          initial_sync: true
+          ignore: # it also ignores files and folders from .dockerignore
+            - ./node_modules/
+            - ./.git/
+        - path: ./package.json
+          action: rebuild
+
+  postgres:
+    image: postgres:17-alpine
+    container_name: maslkovol-superhero-dev-postgres
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    # REQUIRED for --wait to work
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
+      interval: 1s
+      timeout: 3s
+      retries: 15
+  pgadmin:
+    image: dpage/pgadmin4:8.4
+    container_name: maslkovol-superhero-dev-pgadmin-volume
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    ports:
+      - '${PGADMIN_PORT}:80'
+    depends_on:
+      - postgres
+    volumes:
+      - pgadmin_volume:/var/lib/pgadmin
+
+volumes:
+  postgres_volume:
+    name: maslkovol-superhero-dev-postgres-volume
+  pgadmin_volume:
+    name: maslkovol-superhero-dev-pgadmin-volume

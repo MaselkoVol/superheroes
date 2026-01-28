@@ -1,0 +1,7 @@
+include:
+  - path: ./server/compose.yaml
+    project_directory: ./server
+    env_file: ./server/.env
+  - path: ./client/compose.yaml
+    project_directory: ./client
+    env_file: ./client/.env
