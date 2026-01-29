@@ -16,4 +16,16 @@ export class ErrorUtil {
       typeof obj['errorCode'] === 'string'
     );
   }
+
+  static hasMessage(obj: unknown) {
+    if (
+      typeof obj === 'object' &&
+      obj !== null &&
+      'message' in obj &&
+      typeof obj.message === 'string'
+    ) {
+      return true;
+    }
+    return false;
+  }
 }

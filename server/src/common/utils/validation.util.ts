@@ -13,6 +13,9 @@ export class ValidationUtil {
     }
     return {
       message: details.message,
+      always: details.always,
+      each: details.each,
+      groups: details.groups,
       context: context,
     };
   }

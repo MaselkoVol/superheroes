@@ -1,8 +1,8 @@
 services:
   server:
     pull_policy: never # never pull this image from the cloud
-    image: maslkovol-superhero-dev-server
-    container_name: maslkovol-superhero-dev-server
+    image: maslkovol-superheroes-dev-server
+    container_name: maslkovol-superheroes-dev-server
     build:
       context: ./
       target: server-dev
@@ -27,13 +27,15 @@ services:
 
   postgres:
     image: postgres:17-alpine
-    container_name: maslkovol-superhero-dev-postgres
+    container_name: maslkovol-superheroes-dev-postgres
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - postgres_volume:/var/lib/postgresql/data
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
     # REQUIRED for --wait to work
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
@@ -42,7 +44,7 @@ services:
       retries: 15
   pgadmin:
     image: dpage/pgadmin4:8.4
-    container_name: maslkovol-superhero-dev-pgadmin-volume
+    container_name: maslkovol-superheroes-dev-pgadmin-volume
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
@@ -55,6 +57,6 @@ services:
 
 volumes:
   postgres_volume:
-    name: maslkovol-superhero-dev-postgres-volume
+    name: maslkovol-superheroes-dev-postgres-volume
   pgadmin_volume:
-    name: maslkovol-superhero-dev-pgadmin-volume
+    name: maslkovol-superheroes-dev-pgadmin-volume

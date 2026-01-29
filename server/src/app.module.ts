@@ -8,13 +8,17 @@ import { GlobalExceptionFilter } from './common/filters/global-exception.filter'
 import { AppValidationPipe } from './common/pipes/app-validation.pipe';
 import { appConfig } from './config/app.config';
 import { databaseConfig } from './config/database.config';
-import { DoctorModule } from './modules/doctor/doctor.module';
+import { SuperheroModule } from './modules/superhero/superhero.module';
+import { SuperpowerModule } from './modules/superpower/superpower.module';
+import { ImageModule } from './modules/image/image.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, load: [appConfig, databaseConfig] }),
     TypeOrmModule.forRootAsync(databaseConfig.asProvider()),
-    DoctorModule,
+    SuperheroModule,
+    SuperpowerModule,
+    ImageModule,
   ],
   controllers: [AppController],
   providers: [

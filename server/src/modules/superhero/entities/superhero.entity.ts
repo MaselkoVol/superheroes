@@ -1,4 +1,4 @@
-import { SuperheroImage } from 'src/modules/superheroImage/enitites/superhero-image.entity';
+import { Image } from 'src/modules/image/entities/image.entity';
 import { Superpower } from 'src/modules/superpower/entities/superpower.entity';
 import {
   Column,
@@ -30,6 +30,6 @@ export class Superhero {
   @JoinTable()
   superpowers: Superpower[];
 
-  @OneToMany(() => SuperheroImage, (image) => image.superhero)
-  images: SuperheroImage[];
+  @OneToMany(() => Image, (image) => image.superhero)
+  images: Image[];
 }

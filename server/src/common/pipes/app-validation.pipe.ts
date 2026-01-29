@@ -2,7 +2,7 @@ import { Injectable, ValidationPipe } from '@nestjs/common';
 import { ValidationError } from 'class-validator';
 import { ValidationException } from '../exceptions/validation.exception';
 import {
-  FieldValidationDetails,
+  ValidationExceptionDetails,
   ValidationContext,
   ValidationErrorDetails,
 } from '../interfaces/validation.interface';
@@ -14,12 +14,13 @@ export class AppValidationPipe extends ValidationPipe {
       whitelist: true,
       transform: true,
       stopAtFirstError: true,
+      transformOptions: { enableImplicitConversion: true },
       exceptionFactory: (errors) => this.createException(errors),
     });
   }
 
   createException(errors: ValidationError[]) {
-    const fieldsDetails: FieldValidationDetails[] = [];
+    const fieldsDetails: ValidationExceptionDetails[] = [];
     errors.forEach((error: ValidationError) => {
       const fieldName = error.property;
       this.pushRecursivelyAllErrorsInto(fieldsDetails, fieldName, error);
@@ -28,7 +29,7 @@ export class AppValidationPipe extends ValidationPipe {
   }
 
   pushRecursivelyAllErrorsInto(
-    validationDetails: FieldValidationDetails[],
+    validationDetails: ValidationExceptionDetails[],
     path: string, // required for nested objects
     error: ValidationError,
   ) {

@@ -1,38 +1,56 @@
-import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common';
-import { Request, Response } from 'express';
-import { InternalServerErrorException } from '../exceptions/internal-server-error.exception';
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
+import { Response } from 'express';
 import { BaseException } from '../exceptions/base.exception';
-import { ApiWrappedException } from '../exceptions/api-wrapped.exception';
+import {
+  InternalServerErrorException,
+  NotFoundException,
+} from '../exceptions/common.exceptions';
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
-  catch(exception: any, host: ArgumentsHost) {
+  catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
 
-    const apiException = this.getApiException(exception);
+    const baseException = this.getBaseException(exception);
 
-    console.error(apiException);
+    console.error(baseException);
 
-    return response.status(apiException.statusCode).json({
-      message: apiException.message,
-      errorCode: apiException.errorCode,
-      params: apiException.params,
-      details: apiException.details,
+    response.status(baseException.statusCode).json({
+      message: baseException.message,
+      errorCode: baseException.errorCode,
+      params: baseException.params,
+      details: baseException.details,
       timestamp: new Date().toISOString(),
     });
   }
 
-  getApiException(exception: unknown) {
-    if (exception instanceof ApiWrappedException) {
+  getBaseException(exception: unknown) {
+    if (exception instanceof BaseException) {
       return exception;
     }
-
-    if (exception instanceof BaseException) {
-      return new ApiWrappedException(exception);
+    if (exception instanceof HttpException) {
+      const status = exception.getStatus();
+      const transformedException = this.getRespectiveException(status);
+      return new transformedException(exception.cause);
     }
 
     const internalException = new InternalServerErrorException(exception);
-    return new ApiWrappedException(internalException);
+    return new BaseException(internalException);
+  }
+
+  getRespectiveException(status: HttpStatus) {
+    switch (status) {
+      case HttpStatus.NOT_FOUND:
+        return NotFoundException;
+      default:
+        return InternalServerErrorException;
+    }
   }
 }

@@ -1,8 +1,8 @@
 services:
   client:
     pull_policy: never # never pull this image from the cloud
-    image: maslkovol-superhero-dev-client
-    container_name: maslkovol-superhero-dev-client
+    image: maslkovol-superheroes-dev-client
+    container_name: maslkovol-superheroes-dev-client
     build:
       context: ./
       target: client-dev
