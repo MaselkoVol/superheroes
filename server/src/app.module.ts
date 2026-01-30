@@ -11,9 +11,15 @@ import { databaseConfig } from './config/database.config';
 import { SuperheroModule } from './modules/superhero/superhero.module';
 import { SuperpowerModule } from './modules/superpower/superpower.module';
 import { ImageModule } from './modules/image/image.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(process.cwd(), 'uploads'),
+      serveRoot: '/uploads',
+    }),
     ConfigModule.forRoot({ isGlobal: true, load: [appConfig, databaseConfig] }),
     TypeOrmModule.forRootAsync(databaseConfig.asProvider()),
     SuperheroModule,

@@ -6,12 +6,12 @@ import { TransformStringIntoArray } from 'src/common/decorators/transform-string
 
 export class FindManySuperheroesQuery {
   @IsValidString('Superpower', 3, 100, { each: true })
-  @IsValidArray('Superpowers', 1, 10)
+  @IsValidArray('Superpowers', undefined, 10)
   @TransformStringIntoArray()
   @IsOptional()
   superpowers?: string[];
 
-  @IsValidString('Search', 1, 100)
+  @IsValidString('Search', undefined, 100)
   @IsOptional()
   nickname?: string;
 

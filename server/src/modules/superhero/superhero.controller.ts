@@ -34,7 +34,7 @@ function getFilesUploadOptions(fieldName: string) {
   };
 }
 
-@Controller('superhero')
+@Controller('superheroes')
 export class SuperheroController {
   constructor(
     private readonly createUseCase: CreateUseCase,

@@ -1,3 +1,5 @@
 export const appConfig = {
-  serverUrl: "http://localhost:5050",
+  baseUrl: "http://localhost:5000",
+  paginationLimit: 5,
+  paginationReachLimit: 5,
 };

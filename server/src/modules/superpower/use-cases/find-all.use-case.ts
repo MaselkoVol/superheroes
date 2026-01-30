@@ -10,8 +10,6 @@ export class FindAllUseCase {
     private readonly repository: Repository<Superpower>,
   ) {}
   async execute() {
-    const superpowers = await this.repository.find();
-    console.log(superpowers);
-    return superpowers;
+    return await this.repository.find();
   }
 }

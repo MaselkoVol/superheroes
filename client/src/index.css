@@ -1,1 +1,4 @@
 @import "tailwindcss";
+@theme {
+  --spacing-page-padding: 2rem;
+}
