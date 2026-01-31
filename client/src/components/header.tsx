@@ -2,7 +2,6 @@ import { Button, Flex, View } from "@adobe/react-spectrum";
 import { HTMLAttributes } from "react";
 import Logo from "./ui/logo";
 import { useNavigate } from "react-router";
-import { useMediaQuery } from "usehooks-ts";
 import { useIsDesktop } from "../common/hooks/use-is-desktop";
 
 export type HeaderProps = HTMLAttributes<HTMLHeadingElement> & {

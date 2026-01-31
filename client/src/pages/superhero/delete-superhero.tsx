@@ -10,7 +10,6 @@ import {
   View,
 } from "@adobe/react-spectrum";
 import { DeleteSuperheroControl } from "../../common/types/superhero";
-import { Fragment } from "react/jsx-runtime";
 import { useState } from "react";
 
 export type DeleteSuperheroButtonProps = {

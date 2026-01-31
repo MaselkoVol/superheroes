@@ -1,4 +1,3 @@
-import { UseMutationResult } from "@tanstack/react-query";
 import { FieldErrors } from "./error";
 import { Image } from "./image";
 import { Superpower } from "./superpower";
