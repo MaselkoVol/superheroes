@@ -1,4 +1,5 @@
-@import "tailwindcss";
-@theme {
-  --spacing-page-padding: 2rem;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }

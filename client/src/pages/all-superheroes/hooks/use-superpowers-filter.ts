@@ -3,9 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { useSearchParams } from "react-router";
 import { getSuperpowers } from "../../../common/api/get-superpowers";
-import { SuperpowersControl } from "../../../common/types/superpower";
+import { SuperpowersFilterControl } from "../../../common/types/superpower";
 
-export function useSuperpowers(): SuperpowersControl {
+export function useSuperpowersFilter(): SuperpowersFilterControl {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedNames = useMemo(

@@ -1,6 +1,5 @@
 import { Button, Flex, View } from "@adobe/react-spectrum";
 import { appConfig } from "../config";
-import { useMemo } from "react";
 
 export type PaginationProps = {
   total: number;

@@ -1,8 +1,8 @@
 import { Flex, Item, TagGroup, View } from "@adobe/react-spectrum";
-import { SuperpowersControl } from "../../common/types/superpower";
+import { SuperpowersFilterControl } from "../../common/types/superpower";
 
 export type SueprheroesFiltersProps = {
-  superpowersControl: SuperpowersControl;
+  superpowersControl: SuperpowersFilterControl;
 };
 
 export function SueprheroesFilters({
@@ -16,7 +16,7 @@ export function SueprheroesFilters({
           renderEmptyState={() => <></>}
           onRemove={superpowersControl.onRemoved}
           items={superpowersControl.selected}
-          aria-label="Dynamic TagGroup items example"
+          aria-label="superpowers"
         >
           {(item) => <Item>{item.name}</Item>}
         </TagGroup>

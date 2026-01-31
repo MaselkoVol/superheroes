@@ -1,22 +1,23 @@
-import { Button, Flex, Image, View } from "@adobe/react-spectrum";
-import { Link } from "react-router";
-import { appConfig } from "../../config";
+import { Button, Flex, Heading, Image, View } from "@adobe/react-spectrum";
+import { useNavigate } from "react-router";
+import { routes } from "../../common/routes";
 import { SuperheroShort } from "../../common/types/superhero";
+import { getImageUrl } from "../../utils/url";
 
 export type SuperheroShortProps = {
   superhero: SuperheroShort;
 };
 
 export function SuperheroShortView({ superhero }: SuperheroShortProps) {
-  const imageUrl = `${appConfig.baseUrl}/${superhero.imagePath}`;
+  const navigate = useNavigate();
   return (
-    <Flex direction={"column"} height={"size-3600"} key={superhero.id}>
+    <Flex direction={"column"} height={"size-4600"} key={superhero.id}>
       <Image
         width={"100%"}
         height={"100%"}
         objectFit={"cover"}
         alt="superhero"
-        src={imageUrl}
+        src={getImageUrl(superhero.imagePath)}
       />
       <View
         backgroundColor={"gray-50"}
@@ -28,10 +29,13 @@ export function SuperheroShortView({ superhero }: SuperheroShortProps) {
           justifyContent={"space-between"}
           alignItems={"end"}
         >
-          {superhero.nickname}
-          <Link to="/">
-            <Button variant="primary">See more</Button>
-          </Link>
+          <Heading level={3}>{superhero.nickname}</Heading>
+          <Button
+            onPress={() => navigate(routes.getSuperhero(superhero.id))}
+            variant="primary"
+          >
+            See more
+          </Button>
         </Flex>
       </View>
     </Flex>

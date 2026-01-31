@@ -7,11 +7,11 @@ import {
   SearchField,
 } from "@adobe/react-spectrum";
 import { useState } from "react";
-import { SuperpowersControl } from "../../common/types/superpower";
+import { SuperpowersFilterControl } from "../../common/types/superpower";
 import { SuperheroesControl } from "../../common/types/superhero";
 
 export type SearchInputsProps = {
-  superpowersControl: SuperpowersControl;
+  superpowersControl: SuperpowersFilterControl;
   superheroesControl: SuperheroesControl;
 };
 
@@ -25,7 +25,7 @@ export default function SuperheroSearchInputs({
     superpowersControl.onSelected(selectedId);
   };
   return (
-    <Flex gap={"size-200"}>
+    <Flex gap={"size-200"} wrap={"wrap"}>
       <SearchField
         defaultValue={superheroesControl.nickname}
         label="Find seperhero"

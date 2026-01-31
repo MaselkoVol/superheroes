@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { getSuperheroes } from "../../../common/api/get-superheroes";
 import { useSuperheroesControl } from "./use-superheroes-control";
-import { useSuperpowers } from "./use-superpowers";
+import { useSuperpowersFilter } from "./use-superpowers-filter";
+import { useEffect, useState } from "react";
 
 export function useAllSuperheroes() {
-  const superpowers = useSuperpowers();
-  const superheroesControl = useSuperheroesControl();
-
+  const [total, setTotal] = useState<number>();
+  const superpowers = useSuperpowersFilter();
+  const superheroesControl = useSuperheroesControl(total);
   const { data, error, isLoading } = useQuery({
     queryKey: ["superheroes", superpowers, superheroesControl],
 
@@ -18,6 +19,11 @@ export function useAllSuperheroes() {
         page: superheroesControl.page,
       }),
   });
+
+  useEffect(() => {
+    if (!data) return;
+    setTotal(data.metadata.total);
+  }, [data]);
 
   const superheroes = data?.data || [];
 

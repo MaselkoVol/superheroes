@@ -13,7 +13,7 @@ export class CreateSuperheroDto {
   @IsValidString('Origin description', 20, 500)
   originDescription: string;
 
-  @IsValidString('Catch phrase', 5, 100)
+  @IsValidString('Catch phrase', 2, 100)
   catchPhrase: string;
 
   @IsValidString('Superpower', 1, 500, { each: true })

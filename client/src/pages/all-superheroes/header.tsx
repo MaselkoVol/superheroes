@@ -1,17 +1,11 @@
-import { Button, Flex, View } from "@adobe/react-spectrum";
-import { Link } from "react-router";
+import { routes } from "../../common/routes";
 import { SuperheroesControl } from "../../common/types/superhero";
-import Logo from "../../components/ui/logo";
+import { SuperpowersFilterControl } from "../../common/types/superpower";
+import { Header } from "../../components/header";
 import SuperheroSearchInputs from "./search-inputs";
-import { SuperpowersControl } from "../../common/types/superpower";
-
-export type Superpower = {
-  id: string;
-  name: string;
-};
 
 export type HeaderProps = {
-  superpowersControl: SuperpowersControl;
+  superpowersControl: SuperpowersFilterControl;
   superheroesControl: SuperheroesControl;
 };
 
@@ -20,24 +14,11 @@ export default function AllSuperheroesHeader({
   superheroesControl,
 }: HeaderProps) {
   return (
-    <header>
-      <View
-        backgroundColor={"gray-200"}
-        width={"100%"}
-        paddingX={"size-1000"}
-        paddingY={"size-200"}
-      >
-        <Flex justifyContent={"space-between"} alignItems={"end"}>
-          <Link to="/">
-            <Button variant="negative">Create new Superhero</Button>
-          </Link>
-          <SuperheroSearchInputs
-            superheroesControl={superheroesControl}
-            superpowersControl={superpowersControl}
-          />
-          <Logo size={"size-600"} />
-        </Flex>
-      </View>
-    </header>
+    <Header buttonUrl={routes.createSuperhero()} buttonLabel="Create superhero">
+      <SuperheroSearchInputs
+        superheroesControl={superheroesControl}
+        superpowersControl={superpowersControl}
+      />
+    </Header>
   );
 }

@@ -1,9 +1,9 @@
 import { useSearchParams } from "react-router";
 import { appConfig } from "../../../config";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { SuperheroesControl } from "../../../common/types/superhero";
 
-export function useSuperheroesControl(): SuperheroesControl {
+export function useSuperheroesControl(total?: number): SuperheroesControl {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { nickname, page, limit } = useMemo(() => {
@@ -19,6 +19,15 @@ export function useSuperheroesControl(): SuperheroesControl {
     searchParams.set("page", String(page));
     setSearchParams(searchParams);
   };
+
+  useEffect(() => {
+    if (total && (page * limit > total + 1 || page < 0)) {
+      searchParams.set("page", String(1));
+      setSearchParams(searchParams);
+      return;
+    }
+  }, [page, total, limit, searchParams, setSearchParams]);
+
   const onNicknameChanged = (nickname: string) => {
     searchParams.set("nickname", nickname);
     setSearchParams(searchParams);
