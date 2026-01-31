@@ -10,11 +10,11 @@ export function ImagesForm({ images }: ImagesFormProps) {
   return (
     <>
       <FileTrigger
-        acceptedFileTypes={["image/*"]}
+        acceptedFileTypes={["image/jpg", "image/jpeg"]}
         allowsMultiple
         onSelect={images.onSelected}
       >
-        <Button variant="primary">Select Images</Button>
+        <Button variant="primary">Select Images (Jpeg)</Button>
       </FileTrigger>
 
       <Grid columns={repeat("auto-fit", "size-1700")} gap="size-100">
