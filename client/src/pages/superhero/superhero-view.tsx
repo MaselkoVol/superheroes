@@ -71,7 +71,7 @@ export function SuperheroView({
                 </TagGroup>
               </SuperheroSection>
               <SuperheroSection label="Real name">
-                <Heading level={3}>{superhero.nickname}</Heading>
+                <Heading level={3}>{superhero.realName}</Heading>
               </SuperheroSection>
               <SuperheroSection label="Catch phrase">
                 <Heading level={3}>{superhero.catchPhrase}</Heading>
