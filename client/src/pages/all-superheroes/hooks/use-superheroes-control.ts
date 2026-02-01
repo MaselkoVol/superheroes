@@ -21,7 +21,7 @@ export function useSuperheroesControl(total?: number): SuperheroesControl {
   };
 
   useEffect(() => {
-    if (total && (page * limit > total + 1 || page < 0)) {
+    if (page < 0 || (total && page * limit >= total + limit)) {
       searchParams.set("page", String(1));
       setSearchParams(searchParams);
       return;
